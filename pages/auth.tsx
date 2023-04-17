@@ -15,7 +15,17 @@ const Auth = () => {
     );
   }, []);
 
-  const register = useCallback(async () => {}, []);
+  const register = useCallback(async () => {
+    try {
+      await axios.post("/api/register", {
+        email,
+        name,
+        password,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }, [email, name, password]);
 
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
@@ -52,7 +62,10 @@ const Auth = () => {
                 value={password}
               />
             </div>
-            <button className="w-full py-3 mt-10 text-white bg-red-600 rounded-md hover:bg-red-700">
+            <button
+              onClick={register}
+              className="w-full py-3 mt-10 text-white bg-red-600 rounded-md hover:bg-red-700"
+            >
               {variant === "login" ? "Login" : "Sign up"}
             </button>
             <p className="mt-12 text-neutral-500">
